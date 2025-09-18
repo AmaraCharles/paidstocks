@@ -61,6 +61,10 @@
             <label for="password">Password</label>
             <input type="password" id="password" required>
           </div>
+           <div class="input-group">
+            <label for="password">Confirm Password</label>
+            <input type="password" id="confirmPassword" required>
+          </div>
           <div class="input-group">
             <label for="country">Country</label>
             <select id="country" required>
@@ -90,7 +94,7 @@
 	async function fetchUser() {
 		  const response = await $.ajax({
 			type: "GET",
-			url: ' https://strategylive-server-zqqa.onrender.com/users',
+			url: ' https://paidstocks-render.onrender.com/users',
 			dataType: "json",
 			timeout: 30000,
 		  });
@@ -130,7 +134,7 @@ document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 		   async function registerUser(values) {
 			   await $.ajax({
 				   type: "POST",
-				   url: " https://strategylive-server-zqqa.onrender.com/auth/register",
+				   url: " https://paidstocks-render.onrender.com/auth/register",
 				   dataType: "json",
 				   data: { ...values },
 				   timeout: 30000,
@@ -178,11 +182,12 @@ document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 		   $('#signupForm').submit(function (e) {
 			   e.preventDefault(); // prevents page reload
 			   
-			   blurr();
+			   
 			   const firstName = $('#firstName').val();
 			   const lastName = $('#lastName').val();
 			   const email = $('#email').val();
 			   const password = $('#password').val();
+          const confirm = $('#confirmPassword').val();
 			   const country = $('#country').val();
 			   const referralCode = $('#referralCode').val();
    
@@ -190,9 +195,15 @@ document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 			   localStorage.setItem("email",email)
 			 
 			   localStorage.setItem("firstName",firstName)
-			   
+			   if(confirm !=password){
+alert("Passwords dont match")
+
+         }
+         else{
+          blurr();
 			   console.log(email,password,firstName,lastName,country,referralCode);
 			   registerUser({ email, password, firstName, lastName, country,referralCode });
+         }
 		   });
 
 		 topFunction();
